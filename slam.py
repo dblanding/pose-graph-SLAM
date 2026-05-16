@@ -561,9 +561,9 @@ class GraphSLAM:
         return success
     
     def get_map(self) -> np.ndarray:
-        """Get the current occupancy grid map"""
+        """Get current OGM (with 0 to 100 probability values)"""
         return self.map.get_occupancy_grid()
-    
+
     def get_poses(self) -> List[Pose2D]:
         """Get all poses in the graph"""
         return self.pose_graph.poses
@@ -712,7 +712,8 @@ def quick_start_template():
     slam.optimize_full()
     
     # 5. Get results
-    final_map = slam.get_map()
+    final_map = slam.get_map()  # probability values (0 t0 100)
+    flipped_array = np.flipud(slam.map.log_odds)  # for use by incremental mapper
     optimized_poses = slam.get_poses()
     constraints = slam.get_constraints()
     
@@ -720,9 +721,9 @@ def quick_start_template():
     slam.visualize(show_trajectory=True, show_constraints=True)
     plt.savefig(slam_map_file, dpi=200, bbox_inches='tight')
     plt.show()
-    
-    # 7. Optional: Save map to file
-    np.save(save_ogm_file, final_map)
+
+    # 7. Optional: Save array to file
+    np.save(save_ogm_file, flipped_array)
     
     # 8. Optional: Save optimized poses
     with open(save_opt_poses_file, 'w') as f:

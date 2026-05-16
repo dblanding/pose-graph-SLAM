@@ -77,6 +77,3 @@ def stop_odometer():
         print("Error:", e.stderr)
     except FileNotFoundError:
         print("Error: Command not found. Check your command name and path.")
-
-if __name__ == "__main__":
-    scan_mtr_run()
