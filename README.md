@@ -2,7 +2,7 @@
 
 > Implementing SLAM wasn't my goal, at least not initially. I was mostly just exploring the Raspibot's capabilities, what with its fancy Optical Tracking Odometry Sensor and Lidar. I wanted to see what it could do, and I learned lots along the way. But not surprisingly, that learning path is strewn with gobs of obsolete code that no longer has a purpose, and got shoved off into a folder. Someday, when I have more time, I'll sort through it. Sure I will. Basic mapping code -> stuck it in the *early_code/* folder. Investigations into ICP using data from a small loop in office -> shoved it into  the *office_loop/* folder. Anyway, eventually, (with some help from Claude), I managed to create this working Python based Pose-Graph SLAM program.
 
-![Results Display](SLAM_Data/Figure_1.png)
+![Results Display](SLAM_Data/SLAM2.png)
 
 ## Project Overview
 
@@ -37,6 +37,10 @@
     * Final optimizaton
     * Save and display results
 
+4. *display_map.py*
+    * Displays just the OGM
+    * Use the button on the display window to save it as a .png file
+
 ## Data storage
 
 * All (per run) data goes into the `SLAM_Data/` folder
@@ -58,6 +62,8 @@
 3. Now process the data: `python process_data.py` so that it is in the format needed by the slam program.
 4. Run the SLAM program: `python slam.py`
     * This takes a little while, but it will give you lots of feedback to let you know how it's progressing.
+    * You will see two figures, side by side. On the left will be the Occupancy Grid Map that was created, overlayed with the path of the robot. On the right is the Pose Graph showing loop closures.
+5. Run display_map.py to show just the OGM. Use the button on the display window to save it as a .png file.
 
 That's it! You'll get a beautiful map that is suitable for path planning and path following.
 
